@@ -1,6 +1,17 @@
 <html>
 
   <head>
+
+    <style>
+      .houtput {
+        font-size: 10px;
+        outline: none;
+        border: 0px;
+        user-select: none;
+      }
+
+    </style>
+
     <script language="javascript">
       heroes = ['Doomfist', 'Genji', 'McCree', 'Pharah', 'Reaper', 'Soldier: 76',
         'Sombra', 'Tracer', 'Bastion', 'Hanzo', 'Junkrat', 'Mei', 'Torbjorn', 'Widowmaker',
@@ -31,8 +42,7 @@
 
         }
         if (intersect(picks) == 0) {
-        alert('shuffling');
-        	return shuffle();
+          return shuffle();
         }
 
         return picks;
@@ -51,27 +61,27 @@
       </tr>
       <tr>
         <td><input name="p1"></td>
-        <td><input name="h1"></td>
+        <td><input name="h1" class="houtput"></td>
       </tr>
       <tr>
         <td><input name="p2"></td>
-        <td><input name="h2"></td>
+        <td><input name="h2" class="houtput"></td>
       </tr>
       <tr>
         <td><input name="p3"></td>
-        <td><input name="h3"></td>
+        <td><input name="h3" class="houtput"></td>
       </tr>
       <tr>
         <td><input name="p4"></td>
-        <td><input name="h4"></td>
+        <td><input name="h4" class="houtput"></td>
       </tr>
       <tr>
         <td><input name="p5"></td>
-        <td><input name="h5"></td>
+        <td><input name="h5" class="houtput"></td>
       </tr>
       <tr>
         <td><input name="p6"></td>
-        <td><input name="h6"></td>
+        <td><input name="h6" class="houtput"></td>
       </tr>
     </table>
     <button onClick="shuffle()">
