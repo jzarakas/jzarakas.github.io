@@ -1,42 +1,84 @@
 <html>
 
-<head>
-<script language="javascript">
-heroes = ['Doomfist', 'Genji', 'McCree', 'Pharah', 'Reaper', 'Soldier: 76',
-'Sombra', 'Tracer', 'Bastion', 'Hanzo', 'Junkrat', 'Mei', 'Torbjorn', 'Widowmaker',
-'D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston','Zarya', 'Ana', 'Brigitte', 'Lucio',
-'Mercy', 'Moira', 'Symmetra', 'Zenyatta'];
+  <head>
+    <script language="javascript">
+      heroes = ['Doomfist', 'Genji', 'McCree', 'Pharah', 'Reaper', 'Soldier: 76',
+        'Sombra', 'Tracer', 'Bastion', 'Hanzo', 'Junkrat', 'Mei', 'Torbjorn', 'Widowmaker',
+        'D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston', 'Zarya', 'Ana', 'Brigitte', 'Lucio',
+        'Mercy', 'Moira', 'Symmetra', 'Zenyatta'
+      ];
 
-function shuffle() {
-	picks = [];
-		for(i = 0; i < 6; i++) {
-    	 var h = heroes[Math.floor(Math.random()*heroes.length)];
-       	while (picks.includes(h)) {
-        	    	 h = heroes[Math.floor(Math.random()*heroes.length)];
+      supports = ['Ana', 'Brigitte', 'Lucio',
+        'Mercy', 'Moira', 'Zenyatta'
+      ];
+
+      function intersect(picks) {
+        var result = picks.filter(function(n) {
+          return supports.indexOf(n) > -1;
+        });
+        return result.length;
+      }
+
+      function shuffle() {
+        picks = [];
+        for (i = 0; i < 6; i++) {
+          var h = heroes[Math.floor(Math.random() * heroes.length)];
+          while (picks.includes(h)) {
+            h = heroes[Math.floor(Math.random() * heroes.length)];
+          }
+          document.getElementsByName("h" + (i + 1))[0].value = h
+          picks.push(h);
+
         }
-        document.getElementsByName("h" + (i+1))[0].value = h
-    		picks.push(h);
-    }
-	return picks;
-  
-}
-</script>
-</head>
-<body>
+        if (intersect(picks) == 0) {
+        alert('shuffling');
+        	return shuffle();
+        }
 
-<table>
-<tr><td>Player</td><td>Hero</td></tr>
-<tr><td><input name="p1"></td><td><input name="h1"></td></tr>
-<tr><td><input name="p2"></td><td><input name="h2"></td></tr>
-<tr><td><input name="p3"></td><td><input name="h3"></td></tr>
-<tr><td><input name="p4"></td><td><input name="h4"></td></tr>
-<tr><td><input name="p5"></td><td><input name="h5"></td></tr>
-<tr><td><input name="p6"></td><td><input name="h6"></td></tr>
-</table>
-<button onClick="shuffle()">
+        return picks;
+
+      }
+
+    </script>
+  </head>
+
+  <body>
+
+    <table>
+      <tr>
+        <td>Player</td>
+        <td>Hero</td>
+      </tr>
+      <tr>
+        <td><input name="p1"></td>
+        <td><input name="h1"></td>
+      </tr>
+      <tr>
+        <td><input name="p2"></td>
+        <td><input name="h2"></td>
+      </tr>
+      <tr>
+        <td><input name="p3"></td>
+        <td><input name="h3"></td>
+      </tr>
+      <tr>
+        <td><input name="p4"></td>
+        <td><input name="h4"></td>
+      </tr>
+      <tr>
+        <td><input name="p5"></td>
+        <td><input name="h5"></td>
+      </tr>
+      <tr>
+        <td><input name="p6"></td>
+        <td><input name="h6"></td>
+      </tr>
+    </table>
+    <button onClick="shuffle()">
 Generate!
 </button>
 
-->
-</body>
+    <!-- <script language="javascript">shuffle();</script> -->
+  </body>
+
 </html>
