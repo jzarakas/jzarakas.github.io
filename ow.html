@@ -8,45 +8,67 @@
         outline: none;
         border: 0px;
         user-select: none;
-      }
+      }<script language="javascript">
+heroes = ['Doomfist', 'Genji', 'McCree', 'Pharah', 'Reaper', 'Soldier: 76',
+'Sombra', 'Tracer', 'Bastion', 'Hanzo', 'Junkrat', 'Mei', 'Torbjorn', 'Widowmaker',
+'D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston','Zarya', 'Ana', 'Brigitte', 'Lucio',
+'Mercy', 'Moira', 'Symmetra', 'Zenyatta'];
 
-    </style>
+heroPool = {
+    'dps': [
+        'Doomfist', 'Genji', 'McCree', 'Pharah', 'Reaper', 'Soldier: 76',
+'Sombra', 'Tracer', 'Bastion', 'Hanzo', 'Junkrat', 'Mei', 'Torbjorn', 'Widowmaker'
+    ],
+    'tank': ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston','Zarya'],
+    'support': ['Ana', 'Brigitte', 'Lucio', 'Mercy', 'Moira', 'Symmetra', 'Zenyatta']
+} 
 
-    <script language="javascript">
-      heroes = ['Doomfist', 'Genji', 'McCree', 'Pharah', 'Reaper', 'Soldier: 76',
-        'Sombra', 'Tracer', 'Bastion', 'Hanzo', 'Junkrat', 'Mei', 'Torbjorn', 'Widowmaker',
-        'D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston', 'Zarya', 'Ana', 'Brigitte', 'Lucio',
-        'Mercy', 'Moira', 'Symmetra', 'Zenyatta'
-      ];
+supportScore = {
+    'Ana': 3,
+    'Brigitte': 1,
+    'Lucio': 2,
+    'Mercy': 3,
+    'Moira': 3,
+    'Symmetra': 1,
+    'Zenyatta': 2
+}
 
-      supports = ['Ana','Mercy', 'Moira'];
+var heroCategoryEnum = {1: 'dps', 2: 'tank', 3: 'support'};
 
-      function intersect(picks) {
-        var result = picks.filter(function(n) {
-          return supports.indexOf(n) > -1;
-        });
-        return result.length;
-      }
-
-      function shuffle() {
-        picks = [];
-        for (i = 0; i < 6; i++) {
-          var h = heroes[Math.floor(Math.random() * heroes.length)];
-          while (picks.includes(h)) {
-            h = heroes[Math.floor(Math.random() * heroes.length)];
-          }
-          document.getElementsByName("h" + (i + 1))[0].value = h
-          picks.push(h);
-
+function shuffle() {
+    picks = [];
+        for(i = 0; i < 6; i++) {
+            var h = randomPick();
+            while (picks.includes(h)) {
+                h = randomPick();
+            }
+            document.getElementsByName("h" + (i+1))[0].value = h
+                picks.push(h);
         }
-        if (intersect(picks) == 0) {
-          return shuffle();
+    // evaluate picks
+    var pickScore = scorePicks(picks);
+    if (pickScore < 4 || pickScore > 6) {
+        // shuffle again
+        picks = shuffle();
+    }
+    return picks;
+}
+
+function randomPick() {
+    var category = heroCategoryEnum[Math.floor(Math.random()*Object.keys(heroCategoryEnum).length + 1)];
+    var h = heroPool[category][Math.floor(Math.random()*Object.keys(heroPool[category]).length)];
+    return h;
+}
+
+function scorePicks(picks) {
+    var supportScoreTotal = 0;
+    for(i = 0; i < 6; i++) {
+        if(picks[i] in supportScore) {
+            supportScoreTotal += supportScore[picks[i]];
         }
-
-        return picks;
-
-      }
-
+    }
+    return supportScoreTotal;
+}
     </script>
   </head>
 
